@@ -88,7 +88,7 @@ IF(WIN32)
 	add_custom_command(
 			TARGET PyTschirp POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy
-					${CMAKE_BINARY_DIR}/pytschirp/$<CONFIG>/pytschirp.cp36-win_amd64.pyd
+					${CMAKE_BINARY_DIR}/pytschirp/$<CONFIG>/pytschirp.cp${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}-win_amd64.pyd
 					${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>)
 ENDIF()
 
