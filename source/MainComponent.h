@@ -8,7 +8,6 @@
 
 #include "JuceHeader.h"
 
-#include "LambdaButtonStrip.h"
 #include "MidiLogView.h"
 #include "PythonUtils.h"
 #include "PyTschirpEditor.h"
@@ -30,7 +29,6 @@ private:
 	PyStdErrOutStreamRedirect pyOutputRedirect_;
 	MidiLogView logView_;
 	PyTschirpEditor editor_;
-	LambdaButtonStrip buttons_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

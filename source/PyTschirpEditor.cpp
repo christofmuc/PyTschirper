@@ -7,15 +7,22 @@
 
 namespace py = pybind11;
 
-PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : standardOuts_(standardOuts)
+PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : standardOuts_(standardOuts), buttons_(LambdaButtonStrip::Horizontal)
 {
 	editor_ = std::make_unique<CodeEditorComponent>(document_, nullptr);
 	editor_->addKeyListener(this);
 	addAndMakeVisible(editor_.get());
 	LambdaButtonStrip::TButtonMap buttons = {
-		{ "sendToSynth", { "Compile and send (ALT+RETURN)", [this]() {
+		{ "load", { 0, "Load...", []() {}}},
+		{ "save", { 1, "Save...", []() {}}},
+		{ "saveAs", { 2, "Save as...", []() {}}},
+		{ "run", { 3, "Run (ALT+RETURN)", [this]() {
 		executeDocument();
-	}}}
+		}}},
+		{ "about", { 4, "About", []() {} }},
+		{ "close", { 5, "Close", []() {
+			JUCEApplicationBase::quit();
+		} }}
 	};
 	buttons_.setButtonDefinitions(buttons);
 	addAndMakeVisible(buttons_);

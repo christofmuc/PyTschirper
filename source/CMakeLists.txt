@@ -11,8 +11,7 @@
 # Header Textbox with explanation which objects are in
 # Headers for StdOut, StdErr
 # Retain rev2 object in globals once detected
-# New Button row on top - Load, Save, Save As, Run, Close
-# Load and save script
+# Load and save script, save as
 # Vertical Button strip with assignable scripts, named buttons
 # Hooks to react on certain messages received, e.g. program change
 # Somehow get Midi Log filled? 

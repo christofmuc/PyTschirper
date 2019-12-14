@@ -7,15 +7,10 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent() : buttons_(LambdaButtonStrip::Horizontal), editor_(pyOutputRedirect_)
+MainComponent::MainComponent() : editor_(pyOutputRedirect_)
 {
 	addAndMakeVisible(editor_);
-	addAndMakeVisible(buttons_);
 	addAndMakeVisible(logView_);
-
-	buttons_.setButtonDefinitions({
-		{ "close", { "Close", []() { JUCEApplicationBase::quit();  } } }
-	});
 
     // Make sure you set the size of the component after
     // you add any child components.
@@ -32,7 +27,6 @@ void MainComponent::resized()
     // If you add any child components, this is where you should
     // update their positions.
 	auto area = getLocalBounds();	
-	buttons_.setBounds(area.removeFromBottom(80));
 	editor_.setBounds(area.removeFromTop(500));
 	logView_.setBounds(area);
 }
