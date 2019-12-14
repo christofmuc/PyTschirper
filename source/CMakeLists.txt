@@ -14,10 +14,12 @@
 # Vertical Button strip with assignable scripts, named buttons
 # Hooks to react on certain messages received, e.g. program change
 # Somehow get Midi Log filled? 
-# Save as
 # About Box with licenses, like SourceTree does it
 # Installer?
 # README
+# Improvement ideas:
+#   Show current document path in window title
+#   Show modified document with asterisk in window title
 
 cmake_minimum_required(VERSION 3.14)
 

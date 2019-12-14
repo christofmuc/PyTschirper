@@ -19,7 +19,8 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 		{ "save", { 1, "Save (CTRL-S)", [this]() {
 			saveDocument();
 		}, 0x53 /* S */, ModifierKeys::ctrlModifier}},
-		{ "saveAs", { 2, "Save as (CTRL-A)", []() {
+		{ "saveAs", { 2, "Save as (CTRL-A)", [this]() {
+			saveAsDocument();
 		}, 0x41 /* A */, ModifierKeys::ctrlModifier}},
 		{ "run", { 3, "Run (CTRL-ENTER)", [this]() {
 			executeDocument();
@@ -100,7 +101,16 @@ void PyTschirpEditor::saveDocument()
 
 void PyTschirpEditor::saveAsDocument()
 {
+	FileChooser chooser("Save as...",
+		File::getSpecialLocation(File::userHomeDirectory),
+		"*.py");
 
+	if (chooser.browseForFileToSave(true))
+	{
+		File chosenFile(chooser.getResult());
+		currentFilePath_ = chosenFile.getFullPathName();
+		saveDocument();
+	}
 }
 
 void PyTschirpEditor::codeDocumentTextInserted(const String& newText, int insertIndex)
