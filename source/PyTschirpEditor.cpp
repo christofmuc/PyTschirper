@@ -7,7 +7,7 @@
 
 namespace py = pybind11;
 
-PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : standardOuts_(standardOuts), buttons_(LambdaButtonStrip::Horizontal)
+PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : standardOuts_(standardOuts), buttons_(201, LambdaButtonStrip::Direction::Horizontal)
 {
 	editor_ = std::make_unique<CodeEditorComponent>(document_, nullptr);
 	editor_->addKeyListener(this);
@@ -34,6 +34,13 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 	addAndMakeVisible(currentStdout_);
 	currentError_.setReadOnly(true);
 	document_.addListener(this);
+
+	// Setup hot keys
+	commandManager_.registerAllCommandsForTarget(&buttons_);
+	auto keyMap = commandManager_.getKeyMappings();
+	keyMap->addKeyPress(201, KeyPress(79, ModifierKeys::ctrlModifier, 'o'));
+	addKeyListener(commandManager_.getKeyMappings());
+	editor_->setCommandManager(&commandManager_);
 }
 
 PyTschirpEditor::~PyTschirpEditor()
@@ -112,6 +119,28 @@ bool PyTschirpEditor::keyPressed(const KeyPress& key, Component* originatingComp
 		executeDocument();
 		return true;
 	}
+	return false;
+}
+
+juce::ApplicationCommandTarget* PyTschirpEditor::getNextCommandTarget()
+{
+	// Delegate to the lambda button strip
+	return &buttons_;
+}
+
+void PyTschirpEditor::getAllCommands(Array<CommandID>& commands)
+{
+	// Editor itself has no commands, this is only used to delegate commands the CodeEditor does not handle to the lambda button strip
+}
+
+void PyTschirpEditor::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result)
+{
+	// None, as no commands are registered here
+}
+
+bool PyTschirpEditor::perform(const InvocationInfo& info)
+{
+	// Always false, as no commands are registered here
 	return false;
 }
 

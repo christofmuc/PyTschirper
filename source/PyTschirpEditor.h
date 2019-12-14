@@ -12,6 +12,7 @@
 #include "PythonUtils.h"
 
 class PyTschirpEditor : public Component,
+	public ApplicationCommandTarget,
 	private CodeDocument::Listener,
 	private KeyListener
 {
@@ -30,6 +31,11 @@ public:
 	// Key listener, for custom shortcuts
 	virtual bool keyPressed(const KeyPress& key, Component* originatingComponent) override;
 
+	virtual ApplicationCommandTarget* getNextCommandTarget() override;
+	virtual void getAllCommands(Array<CommandID>& commands) override;
+	virtual void getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) override;
+	virtual bool perform(const InvocationInfo& info) override;
+
 private:
 	void executeDocument();
 	void loadDocument();
@@ -43,7 +49,7 @@ private:
 	TextEditor currentError_, currentStdout_;
 	StringArray errors_;
 
+	ApplicationCommandManager commandManager_;
 	String currentFilePath_;
 };
-
 
