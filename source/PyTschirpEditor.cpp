@@ -47,6 +47,8 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 	currentStdout_.setMultiLine(true, false);
 	document_.addListener(this);
 
+	helpText_.setReadOnly(true);
+	helpText_.setMultiLine(true, false);
 	helpText_.setText("Welcome to the PyTschirp demo program. Below is a python script editor which already imported pytschirp.\n"
 		"\n"
 		"Type some commands like 'r = Rev2()' and press CTRL-ENTER to execute the script");
