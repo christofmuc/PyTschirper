@@ -14,7 +14,8 @@
 class PyTschirpEditor : public Component,
 	public ApplicationCommandTarget,
 	private CodeDocument::Listener,
-	private KeyListener
+	private KeyListener,
+	private Timer
 {
 public:
 	PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts);
@@ -36,6 +37,9 @@ public:
 	virtual void getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) override;
 	virtual bool perform(const InvocationInfo& info) override;
 
+	// This is only to grab focus once
+	virtual void timerCallback() override;
+
 private:
 	void initPython();
 	void executeDocument();
@@ -49,8 +53,11 @@ private:
 	LambdaButtonStrip buttons_;
 	TextEditor currentError_, currentStdout_;
 	StringArray errors_;
+	TextEditor helpText_;
+	Label stdErrLabel_, stdOutLabel_;
 
 	ApplicationCommandManager commandManager_;
 	String currentFilePath_;
+	bool grabbedFocus_;
 };
 

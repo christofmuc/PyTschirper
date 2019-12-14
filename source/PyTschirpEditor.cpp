@@ -7,7 +7,7 @@
 
 namespace py = pybind11;
 
-PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : standardOuts_(standardOuts), buttons_(201, LambdaButtonStrip::Direction::Horizontal)
+PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : standardOuts_(standardOuts), buttons_(201, LambdaButtonStrip::Direction::Horizontal), grabbedFocus_(false)
 {
 	initPython();
 
@@ -46,6 +46,9 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 	commandManager_.registerAllCommandsForTarget(&buttons_);
 	addKeyListener(commandManager_.getKeyMappings());
 	editor_->setCommandManager(&commandManager_);
+
+	editor_->setWantsKeyboardFocus(true);
+	startTimer(100);
 }
 
 PyTschirpEditor::~PyTschirpEditor()
@@ -156,6 +159,15 @@ bool PyTschirpEditor::perform(const InvocationInfo& info)
 {
 	// Always false, as no commands are registered here
 	return false;
+}
+
+void PyTschirpEditor::timerCallback()
+{
+	if (editor_->isShowing()) {
+		editor_->grabKeyboardFocus();
+		grabbedFocus_ = true;
+		stopTimer();
+	}
 }
 
 void PyTschirpEditor::initPython()
