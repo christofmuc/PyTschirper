@@ -16,3 +16,6 @@
 [submodule "MidiKraft-base"]
 	path = MidiKraft-base
 	url = https://github.com/christofmuc/MidiKraft-base.git
+[submodule "juce-widgets"]
+	path = juce-widgets
+	url = https://github.com/christofmuc/juce-widgets.git
