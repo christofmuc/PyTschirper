@@ -17,6 +17,8 @@ public:
 	std::string stdoutString();
 	std::string stderrString();
 
+	void clear();
+
 private:
 	pybind11::object _stdout;
 	pybind11::object _stderr;

@@ -68,9 +68,15 @@ void PyTschirpEditor::executeDocument()
 {
 	String pythonCode = document_.getAllContent();
 	try {
+		standardOuts_.clear();
 		py::exec(pythonCode.toStdString());
 
-		currentError_.setText(standardOuts_.stderrString(), dontSendNotification);
+		if (standardOuts_.stderrString().empty()) {
+			currentError_.setText("Success", dontSendNotification);
+		}
+		else {
+			currentError_.setText(standardOuts_.stderrString(), dontSendNotification);
+		}
 		currentStdout_.setText(standardOuts_.stdoutString(), dontSendNotification);
 	}
 	catch (std::exception &e) {

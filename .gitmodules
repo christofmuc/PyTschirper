@@ -19,3 +19,6 @@
 [submodule "juce-widgets"]
 	path = juce-widgets
 	url = https://github.com/christofmuc/juce-widgets.git
+[submodule "pytschirp"]
+	path = pytschirp
+	url = https://github.com/christofmuc/pytschirp.git
