@@ -7,7 +7,7 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent() : buttons_(LambdaButtonStrip::Horizontal)
+MainComponent::MainComponent() : buttons_(LambdaButtonStrip::Horizontal), editor_(pyOutputRedirect_)
 {
 	addAndMakeVisible(editor_);
 	addAndMakeVisible(buttons_);

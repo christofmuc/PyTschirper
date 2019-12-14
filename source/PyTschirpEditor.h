@@ -9,13 +9,14 @@
 #include "JuceHeader.h"
 
 #include "LambdaButtonStrip.h"
+#include "PythonUtils.h"
 
 class PyTschirpEditor : public Component,
 	private CodeDocument::Listener,
 	private KeyListener
 {
 public:
-	PyTschirpEditor();
+	PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts);
 	virtual ~PyTschirpEditor();
 
 	virtual void resized() override;
@@ -30,10 +31,13 @@ public:
 	virtual bool keyPressed(const KeyPress& key, Component* originatingComponent) override;
 
 private:
+	void executeDocument();
+
+	PyStdErrOutStreamRedirect &standardOuts_;
 	std::unique_ptr<CodeEditorComponent> editor_;
 	CodeDocument document_;
 	LambdaButtonStrip buttons_;
-	TextEditor currentError_;
+	TextEditor currentError_, currentStdout_;
 	StringArray errors_;
 };
 
