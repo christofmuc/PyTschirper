@@ -37,6 +37,7 @@ public:
 	virtual bool perform(const InvocationInfo& info) override;
 
 private:
+	void initPython();
 	void executeDocument();
 	void loadDocument();
 	void saveDocument();

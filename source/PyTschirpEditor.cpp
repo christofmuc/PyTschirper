@@ -1,6 +1,6 @@
 #include "PyTschirpEditor.h"
 
-//#include "Logger.h"
+#include "StreamLogger.h"
 
 #include <pybind11/embed.h>
 #include <memory>
@@ -9,6 +9,8 @@ namespace py = pybind11;
 
 PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : standardOuts_(standardOuts), buttons_(201, LambdaButtonStrip::Direction::Horizontal)
 {
+	initPython();
+
 	editor_ = std::make_unique<CodeEditorComponent>(document_, nullptr);
 	editor_->addKeyListener(this);
 	addAndMakeVisible(editor_.get());
@@ -156,12 +158,25 @@ bool PyTschirpEditor::perform(const InvocationInfo& info)
 	return false;
 }
 
+void PyTschirpEditor::initPython()
+{
+	try {
+		auto pytschirp = py::module::import("pytschirp");
+		py::globals()["Rev2"] = pytschirp.attr("Rev2");
+		py::globals()["Rev2Patch"] = pytschirp.attr("Rev2Patch");
+	}
+	catch (std::exception &e) {
+		jassert(false);
+		StreamLogger::instance() << e.what() << std::endl;
+	}
+}
+
 void PyTschirpEditor::executeDocument()
 {
 	String pythonCode = document_.getAllContent();
 	try {
 		standardOuts_.clear();
-		py::exec(pythonCode.toStdString());
+		py::exec(pythonCode.toStdString(), py::globals());
 
 		if (standardOuts_.stderrString().empty()) {
 			currentError_.setText("Success", dontSendNotification);

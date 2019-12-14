@@ -7,10 +7,8 @@
 #
 # TODO
 # 
-# Automatic import of pytschirp Rev2, Rev2Patch symbols
 # Header Textbox with explanation which objects are in
 # Headers for StdOut, StdErr
-# Retain rev2 object in globals once detected
 # Vertical Button strip with assignable scripts, named buttons
 # Hooks to react on certain messages received, e.g. program change
 # Somehow get Midi Log filled? 
@@ -59,7 +57,7 @@ set(SOURCES
 add_executable(PyTschirp WIN32 ${SOURCES})
 target_include_directories(PyTschirp INTERFACE ${CMAKE_CURRENT_LIST_DIR})
 IF(WIN32)
-	target_link_libraries(PyTschirp PRIVATE ${JUCE_LIBRARIES} pybind11::embed juce-widgets)
+	target_link_libraries(PyTschirp PRIVATE ${JUCE_LIBRARIES} pybind11::embed juce-utils juce-widgets)
 ELSEIF(UNIX)
 	target_link_libraries(PyTschirp PRIVATE 
 		${JUCE_LIBRARIES} 
@@ -72,6 +70,7 @@ ELSEIF(UNIX)
 		freetype 
 		curl 
 		pybind11::embed
+		juce-utils 
 		juce-widgets
 		)
 	target_compile_options(PyTschirp PRIVATE -pthread -I/usr/include/webkitgtk-4.0 -I/usr/include/gtk-3.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/gtk-3.0 -I/usr/include/gio-unix-2.0/ -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libpng16 -I/usr/include/libsoup-2.4 -I/usr/include/libxml2 -I/usr/include/webkitgtk-4.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include)
@@ -85,6 +84,11 @@ IF(WIN32)
 			TARGET PyTschirp POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy
 					"${PYTHONPATH}/python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}.dll"
+					${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>)
+	add_custom_command(
+			TARGET PyTschirp POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy
+					${CMAKE_BINARY_DIR}/pytschirp/$<CONFIG>/pytschirp.cp36-win_amd64.pyd
 					${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>)
 ENDIF()
 
