@@ -35,6 +35,9 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 	addAndMakeVisible(currentError_);
 	addAndMakeVisible(currentStdout_);
 	currentError_.setReadOnly(true);
+	currentError_.setMultiLine(true, false);
+	currentStdout_.setReadOnly(true);
+	currentStdout_.setMultiLine(true, false);
 	document_.addListener(this);
 
 	// Setup hot keys
