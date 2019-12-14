@@ -34,13 +34,22 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 	};
 	buttons_.setButtonDefinitions(buttons);
 	addAndMakeVisible(buttons_);
+	addAndMakeVisible(helpText_);
+	addAndMakeVisible(stdErrLabel_);
 	addAndMakeVisible(currentError_);
+	addAndMakeVisible(stdOutLabel_);
 	addAndMakeVisible(currentStdout_);
+	stdErrLabel_.setText("stderr:", dontSendNotification);
 	currentError_.setReadOnly(true);
 	currentError_.setMultiLine(true, false);
+	stdOutLabel_.setText("stdout:", dontSendNotification);
 	currentStdout_.setReadOnly(true);
 	currentStdout_.setMultiLine(true, false);
 	document_.addListener(this);
+
+	helpText_.setText("Welcome to the PyTschirp demo program. Below is a python script editor which already imported pytschirp.\n"
+		"\n"
+		"Type some commands like 'r = Rev2()' and press CTRL-ENTER to execute the script");
 
 	// Setup hot keys
 	commandManager_.registerAllCommandsForTarget(&buttons_);
@@ -61,10 +70,19 @@ void PyTschirpEditor::resized()
 {
 	Rectangle<int> area(getLocalBounds());
 	buttons_.setBounds(area.removeFromTop(60).reduced(20));
+	helpText_.setBounds(area.removeFromTop(60).withTrimmedLeft(20).withTrimmedRight(20));
+
 	auto outputArea = area.removeFromBottom(area.getHeight() / 3).reduced(20);
-	currentError_.setBounds(outputArea.removeFromLeft(outputArea.getWidth()/2));
-	currentStdout_.setBounds(outputArea);
-	editor_->setBounds(area.withTrimmedLeft(20).withTrimmedRight(20));
+
+	auto stdErr = outputArea.removeFromLeft(outputArea.getWidth() / 2).withTrimmedRight(10);
+	stdErrLabel_.setBounds(stdErr.removeFromTop(20));
+	currentError_.setBounds(stdErr);
+
+	auto stdOut = outputArea.withTrimmedLeft(10);
+	stdOutLabel_.setBounds(stdOut.removeFromTop(20));
+	currentStdout_.setBounds(stdOut);
+
+	editor_->setBounds(area.reduced(20));
 }
 
 void PyTschirpEditor::loadDocument(std::string const &document)
