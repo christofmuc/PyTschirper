@@ -7,8 +7,6 @@
 #
 # TODO
 # 
-# Header Textbox with explanation which objects are in
-# Headers for StdOut, StdErr
 # Vertical Button strip with assignable scripts, named buttons
 # Hooks to react on certain messages received, e.g. program change
 # Somehow get Midi Log filled? 
