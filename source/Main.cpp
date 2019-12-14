@@ -1,15 +1,13 @@
 /*
-  ==============================================================================
+   Copyright (c) 2019 Christof Ruch. All rights reserved.
 
-    This file was auto-generated!
-
-    It contains the basic startup code for a JUCE application.
-
-  ==============================================================================
+   Dual licensed: Distributed under Affero GPL license by default, an MIT license is available for purchase
 */
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
+
 #include "MainComponent.h"
+#include <memory>
 
 //==============================================================================
 class PyTschirperApplication  : public JUCEApplication
@@ -25,9 +23,9 @@ public:
     //==============================================================================
     void initialise (const String& commandLine) override
     {
-        // This method is where you should put your application's initialisation code..
+        // This method is where you should put your application's initialization code..
 
-        mainWindow.reset (new MainWindow (getApplicationName()));
+        mainWindow = std::make_unique<MainWindow> (getApplicationName());
     }
 
     void shutdown() override

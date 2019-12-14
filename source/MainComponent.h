@@ -9,6 +9,7 @@
 #include "JuceHeader.h"
 
 #include "LambdaButtonStrip.h"
+#include "MidiLogView.h"
 
 class MainComponent   : public Component
 {
@@ -19,6 +20,7 @@ public:
     void resized() override;
 
 private:
+	MidiLogView logView_;
 	LambdaButtonStrip buttons_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)

@@ -1,9 +1,7 @@
 /*
-  ==============================================================================
+   Copyright (c) 2019 Christof Ruch. All rights reserved.
 
-    This file was auto-generated!
-
-  ==============================================================================
+   Dual licensed: Distributed under Affero GPL license by default, an MIT license is available for purchase
 */
 
 #include "MainComponent.h"
@@ -12,6 +10,7 @@
 MainComponent::MainComponent() : buttons_(LambdaButtonStrip::Horizontal)
 {
 	addAndMakeVisible(buttons_);
+	addAndMakeVisible(logView_);
 
 	buttons_.setButtonDefinitions({
 		{ "close", { "Close", []() { JUCEApplicationBase::quit();  } } }
@@ -33,4 +32,5 @@ void MainComponent::resized()
     // update their positions.
 	auto area = getLocalBounds();	
 	buttons_.setBounds(area.removeFromBottom(80));
+	logView_.setBounds(area);
 }
