@@ -13,20 +13,21 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 	editor_->addKeyListener(this);
 	addAndMakeVisible(editor_.get());
 	LambdaButtonStrip::TButtonMap buttons = {
-		{ "load", { 0, "Load...", [this]() {
+		{ "load", { 0, "Open (CTRL-O)", [this]() {
 			loadDocument();
-		}}},
-		{ "save", { 1, "Save...", [this]() {
+		}, 0x4F /* O */, ModifierKeys::ctrlModifier}},
+		{ "save", { 1, "Save (CTRL-S)", [this]() {
 			saveDocument();
-		}}},
-		{ "saveAs", { 2, "Save as...", []() {}}},
-		{ "run", { 3, "Run (ALT+RETURN)", [this]() {
-		executeDocument();
-		}}},
-		{ "about", { 4, "About", []() {} }},
-		{ "close", { 5, "Close", []() {
+		}, 0x53 /* S */, ModifierKeys::ctrlModifier}},
+		{ "saveAs", { 2, "Save as (CTRL-A)", []() {
+		}, 0x41 /* A */, ModifierKeys::ctrlModifier}},
+		{ "run", { 3, "Run (CTRL-ENTER)", [this]() {
+			executeDocument();
+		}, 0x0D /* ENTER */, ModifierKeys::ctrlModifier}},
+		{ "about", { 4, "About", []() {}, -1, 0}},
+		{ "close", { 5, "Close (CTRL-W)", []() {
 			JUCEApplicationBase::quit();
-		} }}
+		}, 0x57 /* W */, ModifierKeys::ctrlModifier}}
 	};
 	buttons_.setButtonDefinitions(buttons);
 	addAndMakeVisible(buttons_);
@@ -37,8 +38,6 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 
 	// Setup hot keys
 	commandManager_.registerAllCommandsForTarget(&buttons_);
-	auto keyMap = commandManager_.getKeyMappings();
-	keyMap->addKeyPress(201, KeyPress(79, ModifierKeys::ctrlModifier, 'o'));
 	addKeyListener(commandManager_.getKeyMappings());
 	editor_->setCommandManager(&commandManager_);
 }
