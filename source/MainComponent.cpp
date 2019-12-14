@@ -9,6 +9,7 @@
 //==============================================================================
 MainComponent::MainComponent() : buttons_(LambdaButtonStrip::Horizontal)
 {
+	addAndMakeVisible(editor_);
 	addAndMakeVisible(buttons_);
 	addAndMakeVisible(logView_);
 
@@ -18,7 +19,7 @@ MainComponent::MainComponent() : buttons_(LambdaButtonStrip::Horizontal)
 
     // Make sure you set the size of the component after
     // you add any child components.
-    setSize (800, 600);
+    setSize (800, 800);
 }
 
 MainComponent::~MainComponent()
@@ -32,5 +33,6 @@ void MainComponent::resized()
     // update their positions.
 	auto area = getLocalBounds();	
 	buttons_.setBounds(area.removeFromBottom(80));
+	editor_.setBounds(area.removeFromTop(500));
 	logView_.setBounds(area);
 }

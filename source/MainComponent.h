@@ -11,6 +11,7 @@
 #include "LambdaButtonStrip.h"
 #include "MidiLogView.h"
 #include "PythonUtils.h"
+#include "PyTschirpEditor.h"
 
 #include <pybind11/embed.h>
 
@@ -28,6 +29,7 @@ private:
 	py::scoped_interpreter guard_;
 	PyStdErrOutStreamRedirect pyOutputRedirect_;
 	MidiLogView logView_;
+	PyTschirpEditor editor_;
 	LambdaButtonStrip buttons_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)

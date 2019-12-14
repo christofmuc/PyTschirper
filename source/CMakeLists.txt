@@ -34,6 +34,7 @@ find_package(JUCE REQUIRED
 
 set(SOURCES
 	MainComponent.h MainComponent.cpp	
+	PyTschirpEditor.h PyTschirpEditor.cpp
 	PythonUtils.h PythonUtils.cpp
 	Main.cpp
 )
