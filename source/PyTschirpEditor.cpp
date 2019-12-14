@@ -13,8 +13,12 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 	editor_->addKeyListener(this);
 	addAndMakeVisible(editor_.get());
 	LambdaButtonStrip::TButtonMap buttons = {
-		{ "load", { 0, "Load...", []() {}}},
-		{ "save", { 1, "Save...", []() {}}},
+		{ "load", { 0, "Load...", [this]() {
+			loadDocument();
+		}}},
+		{ "save", { 1, "Save...", [this]() {
+			saveDocument();
+		}}},
 		{ "saveAs", { 2, "Save as...", []() {}}},
 		{ "run", { 3, "Run (ALT+RETURN)", [this]() {
 		executeDocument();
@@ -51,6 +55,46 @@ void PyTschirpEditor::resized()
 void PyTschirpEditor::loadDocument(std::string const &document)
 {
 	editor_->loadContent(document);
+}
+
+void PyTschirpEditor::loadDocument()
+{
+	FileChooser chooser("Please select the python file to load...",
+		File::getSpecialLocation(File::userHomeDirectory),
+		"*.py");
+
+	if (chooser.browseForFileToOpen())
+	{
+		File pythonFile(chooser.getResult());
+		if (!pythonFile.existsAsFile()) {
+			return;
+		}
+		currentFilePath_ = pythonFile.getFullPathName();
+		auto fileText = pythonFile.loadFileAsString();
+		editor_->loadContent(fileText);
+	}
+}
+
+void PyTschirpEditor::saveDocument()
+{
+	if (currentFilePath_.isNotEmpty()) {
+		File pythonFile(currentFilePath_);
+		if (pythonFile.existsAsFile() && pythonFile.hasWriteAccess()) {
+			pythonFile.deleteFile();
+		}
+		FileOutputStream out(pythonFile);
+		if (out.openedOk()) {
+			out.writeText(document_.getAllContent(), false, false, nullptr);
+		}
+	}
+	else {
+		saveAsDocument();
+	}
+}
+
+void PyTschirpEditor::saveAsDocument()
+{
+
 }
 
 void PyTschirpEditor::codeDocumentTextInserted(const String& newText, int insertIndex)

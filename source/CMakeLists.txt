@@ -11,10 +11,10 @@
 # Header Textbox with explanation which objects are in
 # Headers for StdOut, StdErr
 # Retain rev2 object in globals once detected
-# Load and save script, save as
 # Vertical Button strip with assignable scripts, named buttons
 # Hooks to react on certain messages received, e.g. program change
 # Somehow get Midi Log filled? 
+# Save as
 # About Box with licenses, like SourceTree does it
 # Installer?
 # README

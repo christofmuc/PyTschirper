@@ -32,6 +32,9 @@ public:
 
 private:
 	void executeDocument();
+	void loadDocument();
+	void saveDocument();
+	void saveAsDocument();
 
 	PyStdErrOutStreamRedirect &standardOuts_;
 	std::unique_ptr<CodeEditorComponent> editor_;
@@ -39,6 +42,8 @@ private:
 	LambdaButtonStrip buttons_;
 	TextEditor currentError_, currentStdout_;
 	StringArray errors_;
+
+	String currentFilePath_;
 };
 
 
