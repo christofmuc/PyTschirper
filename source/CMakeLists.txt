@@ -4,6 +4,22 @@
 #  Dual licensed: Distributed under Affero GPL license by default, an MIT license is available for purchase
 #
 
+#
+# TODO
+# 
+# Automatic import of pytschirp Rev2, Rev2Patch symbols
+# Header Textbox with explanation which objects are in
+# Headers for StdOut, StdErr
+# Retain rev2 object in globals once detected
+# New Button row on top - Load, Save, Save As, Run, Close
+# Load and save script
+# Vertical Button strip with assignable scripts, named buttons
+# Hooks to react on certain messages received, e.g. program change
+# Somehow get Midi Log filled? 
+# About Box with licenses, like SourceTree does it
+# Installer?
+# README
+
 cmake_minimum_required(VERSION 3.14)
 
 project(PyTschirperUI)
