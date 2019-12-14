@@ -29,9 +29,9 @@ add_subdirectory(MidiKraft-base)
 add_subdirectory(MidiKraft-sequential-rev2)
 
 # Setup pybind11
-#IF(WIN32)
-#set(PYTHON_EXECUTABLE "c:/python/python36/python.exe")
-#ENDIF()
+IF(WIN32)
+set(PYTHON_EXECUTABLE "c:/python/python36/python.exe")
+ENDIF()
 set(PYBIND11_PYTHON_VERSION 3.6)
 add_subdirectory(third_party/pybind11)
 

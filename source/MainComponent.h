@@ -10,6 +10,11 @@
 
 #include "LambdaButtonStrip.h"
 #include "MidiLogView.h"
+#include "PythonUtils.h"
+
+#include <pybind11/embed.h>
+
+namespace py = pybind11;
 
 class MainComponent   : public Component
 {
@@ -20,6 +25,8 @@ public:
     void resized() override;
 
 private:
+	py::scoped_interpreter guard_;
+	PyStdErrOutStreamRedirect pyOutputRedirect_;
 	MidiLogView logView_;
 	LambdaButtonStrip buttons_;
 
