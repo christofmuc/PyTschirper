@@ -1,8 +1,10 @@
 # Introduction
 
-This is a simple UI program that allows you to easily explore the concept of the [pytschirp]() project. This project builds Python language bindings for MIDI-capable synthesizers, to allow you to program these synthesizers in, you guessed it, Python. *Real synthesizer programming*.
+This is a simple UI program that allows you to easily explore the concept of the [pytschirp](https://github.com/christofmuc/pytschirp) project. This project builds Python language bindings for MIDI-capable synthesizers, to allow you to program these synthesizers in, you guessed it, Python. 
 
-For the time being, currently only the [Sequential](https://www.sequential.com/) Prophet Rev2 synthesizer is supported, but many more synths are on their way.
+*Real synthesizer programming.*
+
+For the time being, currently only the [Sequential](https://www.sequential.com/) Prophet Rev2 synthesizer is supported, but many more synths are on their way, let us know if you have a specific device you want supported.
 
 If you acquire the software, this is what you will get:
 
@@ -10,7 +12,7 @@ If you acquire the software, this is what you will get:
 
 Effectively it is a little code editor already preloaded with a python interpreter and pytschirp, so you can type into the edit window, execute the python by pressing CTRL-ENTER, and see the output, error messages, as well as the generated MIDI commands going back and forth between your computer and the synthesizer.
 
-You can use it a little bit like a Jupyter Notebook by selecting text and then using ALT-ENTER to execute only the selection.
+You can use it a little bit like a [Jupyter](https://jupyter.org/) Notebook by selecting text and then using ALT-ENTER to execute only the selection.
 
 Live editing of synthesizers is possible.
 
@@ -38,9 +40,10 @@ will set that value. Alternatively, you can get a textual print out of the whole
 
 Python is ideally suited to to complex things, for example randomize the track one of the gated sequencer in a specific value range by:
 
+    import random
     e["Seq Track 1"] = [random.randrange(30, 80) for _ in range(16)]
 
-you get the gist. There are some real-life examples in the aptly called `examples` directory, have a look at them.
+You get the gist. There are some real-life examples in the aptly called `examples` directory, have a look at them.
 
 Full documentation on the language bindings of pytschirp will be created inside the [pytschirp project](https://github.com/christofmuc/pytschirp), head over there for the in-depth infos. pytschirp can be used standalone from any python interpreter or even Jupyter notebook, the PyTschirper UI program is only a little tool that allows people to quickly explore the idea.
 
