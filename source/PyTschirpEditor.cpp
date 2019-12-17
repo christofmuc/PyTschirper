@@ -13,7 +13,6 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 	initPython();
 
 	editor_ = std::make_unique<CodeEditorComponent>(document_, nullptr);
-	editor_->addKeyListener(this);
 	addAndMakeVisible(editor_.get());
 	LambdaButtonStrip::TButtonMap buttons = {
 		{ "load", { 0, "Open (CTRL-O)", [this]() {
@@ -25,11 +24,14 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 		{ "saveAs", { 2, "Save as (CTRL-A)", [this]() {
 			saveAsDocument();
 		}, 0x41 /* A */, ModifierKeys::ctrlModifier}},
-		{ "run", { 3, "Run (CTRL-ENTER)", [this]() {
+		{ "run", { 3, "Run All (CTRL-ENTER)", [this]() {
 			executeDocument();
 		}, 0x0D /* ENTER */, ModifierKeys::ctrlModifier}},
-		{ "about", { 4, "About", []() {}, -1, 0}},
-		{ "close", { 5, "Close (CTRL-W)", []() {
+		{ "runSel", { 4, "Run Sel (ALT-ENTER)", [this]() {
+			executeSelection();
+		}, 0x0D /* ENTER */, ModifierKeys::altModifier}},
+		{ "about", { 5, "About", []() {}, -1, 0}},
+		{ "close", { 6, "Close (CTRL-W)", []() {
 			JUCEApplicationBase::quit();
 		}, 0x57 /* W */, ModifierKeys::ctrlModifier}}
 	};
@@ -67,7 +69,6 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 
 PyTschirpEditor::~PyTschirpEditor()
 {
-	editor_->removeKeyListener(this);
 	document_.removeListener(this);
 }
 
@@ -158,16 +159,6 @@ void PyTschirpEditor::codeDocumentTextDeleted(int startIndex, int endIndex)
 {
 }
 
-bool PyTschirpEditor::keyPressed(const KeyPress& key, Component* originatingComponent)
-{
-	if (key.getKeyCode() == KeyPress::returnKey && key.getModifiers().isAltDown()) {
-		// Alt+Return: Immediate execute
-		executeDocument();
-		return true;
-	}
-	return false;
-}
-
 juce::ApplicationCommandTarget* PyTschirpEditor::getNextCommandTarget()
 {
 	// Delegate to the lambda button strip
@@ -221,9 +212,19 @@ void PyTschirpEditor::initPython()
 void PyTschirpEditor::executeDocument()
 {
 	String pythonCode = document_.getAllContent();
+	executeString(pythonCode);
+}
+
+void PyTschirpEditor::executeSelection()
+{
+	String selectedText = document_.getTextBetween(editor_->getSelectionStart(), editor_->getSelectionEnd());
+	executeString(selectedText);
+}
+
+void PyTschirpEditor::executeString(String const &string) {
 	try {
 		standardOuts_.clear();
-		py::exec(pythonCode.toStdString(), py::globals());
+		py::exec(string.toStdString(), py::globals());
 
 		if (standardOuts_.stderrString().empty()) {
 			currentError_.setText("Success", dontSendNotification);
@@ -238,4 +239,6 @@ void PyTschirpEditor::executeDocument()
 		currentStdout_.setText(standardOuts_.stdoutString(), dontSendNotification);
 	}
 }
+
+
 

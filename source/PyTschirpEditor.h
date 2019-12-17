@@ -15,7 +15,6 @@
 class PyTschirpEditor : public Component,
 	public ApplicationCommandTarget,
 	private CodeDocument::Listener,
-	private KeyListener,
 	private Timer
 {
 public:
@@ -30,9 +29,6 @@ public:
 	virtual void codeDocumentTextInserted(const String& newText, int insertIndex) override;
 	virtual void codeDocumentTextDeleted(int startIndex, int endIndex) override;
 
-	// Key listener, for custom shortcuts
-	virtual bool keyPressed(const KeyPress& key, Component* originatingComponent) override;
-
 	virtual ApplicationCommandTarget* getNextCommandTarget() override;
 	virtual void getAllCommands(Array<CommandID>& commands) override;
 	virtual void getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) override;
@@ -44,6 +40,9 @@ public:
 private:
 	void initPython();
 	void executeDocument();
+	void executeSelection();
+	void executeString(String const &string);
+
 	void loadDocument();
 	void saveDocument();
 	void saveAsDocument();
