@@ -1,6 +1,7 @@
 #include "PyTschirpEditor.h"
 
 #include "StreamLogger.h"
+#include "MidiController.h"
 
 #include <pybind11/embed.h>
 #include <memory>
@@ -53,6 +54,8 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 		"\n"
 		"Type some commands like 'r = Rev2()' and press CTRL-ENTER to execute the script");
 
+	addAndMakeVisible(logView_);
+
 	// Setup hot keys
 	commandManager_.registerAllCommandsForTarget(&buttons_);
 	addKeyListener(commandManager_.getKeyMappings());
@@ -71,20 +74,26 @@ PyTschirpEditor::~PyTschirpEditor()
 void PyTschirpEditor::resized()
 {
 	Rectangle<int> area(getLocalBounds());
-	buttons_.setBounds(area.removeFromTop(60).reduced(20));
-	helpText_.setBounds(area.removeFromTop(60).withTrimmedLeft(20).withTrimmedRight(20));
 
-	auto outputArea = area.removeFromBottom(area.getHeight() / 3).reduced(20);
+	auto left = area.removeFromLeft(area.getWidth() / 2);
+	auto right = area;
 
-	auto stdErr = outputArea.removeFromLeft(outputArea.getWidth() / 2).withTrimmedRight(10);
+	logView_.setBounds(right.removeFromBottom(area.getHeight() * 1 / 3));
+
+	buttons_.setBounds(left.removeFromTop(60).reduced(20));
+	helpText_.setBounds(left.removeFromTop(60).withTrimmedLeft(20).withTrimmedRight(20));
+
+	auto outputArea = right;
+
+	auto stdErr = outputArea.removeFromBottom(outputArea.getHeight() / 2);
 	stdErrLabel_.setBounds(stdErr.removeFromTop(20));
 	currentError_.setBounds(stdErr);
 
-	auto stdOut = outputArea.withTrimmedLeft(10);
+	auto stdOut = outputArea;
 	stdOutLabel_.setBounds(stdOut.removeFromTop(20));
 	currentStdout_.setBounds(stdOut);
 
-	editor_->setBounds(area.reduced(20));
+	editor_->setBounds(left.reduced(20));
 }
 
 void PyTschirpEditor::loadDocument(std::string const &document)
@@ -196,6 +205,12 @@ void PyTschirpEditor::initPython()
 		auto pytschirp = py::module::import("pytschirp");
 		py::globals()["Rev2"] = pytschirp.attr("Rev2");
 		py::globals()["Rev2Patch"] = pytschirp.attr("Rev2Patch");
+
+		auto p = pytschirp.attr("midiControllerInstance")();
+		auto *midiController = p.cast<midikraft::MidiController *>();
+		midiController->setMidiLogFunction([this](MidiMessage const &message, String const &source, bool isOut) {
+			logView_.addMessageToList(message, source, isOut);
+		});
 	}
 	catch (std::exception &e) {
 		jassert(false);

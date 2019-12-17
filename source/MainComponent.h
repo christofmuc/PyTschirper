@@ -8,7 +8,6 @@
 
 #include "JuceHeader.h"
 
-#include "MidiLogView.h"
 #include "PythonUtils.h"
 #include "PyTschirpEditor.h"
 
@@ -26,8 +25,7 @@ public:
 
 private:
 	py::scoped_interpreter guard_;
-	PyStdErrOutStreamRedirect pyOutputRedirect_;
-	MidiLogView logView_;
+	PyStdErrOutStreamRedirect pyOutputRedirect_;	
 	PyTschirpEditor editor_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)

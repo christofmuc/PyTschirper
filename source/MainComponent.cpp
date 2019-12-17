@@ -9,12 +9,11 @@
 //==============================================================================
 MainComponent::MainComponent() : editor_(pyOutputRedirect_)
 {
-	addAndMakeVisible(editor_);
-	addAndMakeVisible(logView_);
+	addAndMakeVisible(editor_);	
 
     // Make sure you set the size of the component after
     // you add any child components.
-    setSize (800, 800);
+    setSize (1280, 800);
 }
 
 MainComponent::~MainComponent()
@@ -27,6 +26,5 @@ void MainComponent::resized()
     // If you add any child components, this is where you should
     // update their positions.
 	auto area = getLocalBounds();	
-	editor_.setBounds(area.removeFromTop(500));
-	logView_.setBounds(area);
+	editor_.setBounds(area.reduced(10));
 }

@@ -10,6 +10,7 @@
 
 #include "LambdaButtonStrip.h"
 #include "PythonUtils.h"
+#include "MidiLogView.h"
 
 class PyTschirpEditor : public Component,
 	public ApplicationCommandTarget,
@@ -55,6 +56,7 @@ private:
 	StringArray errors_;
 	TextEditor helpText_;
 	Label stdErrLabel_, stdOutLabel_;
+	MidiLogView logView_;
 
 	ApplicationCommandManager commandManager_;
 	String currentFilePath_;
