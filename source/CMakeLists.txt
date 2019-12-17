@@ -84,11 +84,17 @@ IF(WIN32)
 			COMMAND ${CMAKE_COMMAND} -E copy
 					"${PYTHONPATH}/python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}.dll"
 					${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>)
+	set(PYD_FILE pytschirp.cp${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}-win_amd64.pyd)
 	add_custom_command(
-			TARGET PyTschirp POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy
-					${CMAKE_BINARY_DIR}/pytschirp/$<CONFIG>/pytschirp.cp${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}-win_amd64.pyd
+			OUTPUT ${PYD_FILE}
+			COMMENT "Copying PYD file"
+			COMMAND ${CMAKE_COMMAND} -E copy_if_different
+					${CMAKE_BINARY_DIR}/pytschirp/$<CONFIG>/${PYD_FILE}
 					${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>)
+	add_custom_target(
+		CopyPYD ALL
+		DEPENDS ${PYD_FILE}
+	)
 ENDIF()
 
 # Use all cores
