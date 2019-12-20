@@ -107,8 +107,9 @@ void PyTschirpEditor::loadDocument(std::string const &document)
 
 void PyTschirpEditor::loadDocument()
 {
+	File defaultExampleLocation = File::getSpecialLocation(File::userDocumentsDirectory).getChildFile("PyTschirperExamples");
 	FileChooser chooser("Please select the python file to load...",
-		File::getSpecialLocation(File::userHomeDirectory),
+		defaultExampleLocation,
 		"*.py");
 
 	if (chooser.browseForFileToOpen())
