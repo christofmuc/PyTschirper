@@ -40,6 +40,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "${CMAKE_CURRENT_BINARY_DIR}\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "${CMAKE_CURRENT_BINARY_DIR}\Release\python36.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "${CMAKE_CURRENT_BINARY_DIR}\Release\pytschirp.cp36-win_amd64.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "${CMAKE_CURRENT_LIST_DIR}\examples\*"; DestDir: "{userdocs}\PyTschirperExamples"; Flags: ignoreversion recursesubdirs
 Source: "${VCREDIST_PATH}\{#VCRedistFileName}"; DestDir: {tmp}; Flags: dontcopy
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 ; VC++ redistributable runtime. Extracted by VC2017RedistNeedsInstall(), if needed.
