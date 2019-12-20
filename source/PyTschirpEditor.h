@@ -47,6 +47,8 @@ private:
 	void saveDocument();
 	void saveAsDocument();
 
+	void aboutBox();
+
 	PyStdErrOutStreamRedirect &standardOuts_;
 	std::unique_ptr<CodeEditorComponent> editor_;
 	CodeDocument document_;

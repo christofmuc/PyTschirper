@@ -31,7 +31,9 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 		{ "runSel", { 4, "Run Sel (ALT-ENTER)", [this]() {
 			executeSelection();
 		}, 0x0D /* ENTER */, ModifierKeys::altModifier}},
-		{ "about", { 5, "About", []() {}, -1, 0}},
+		{ "about", { 5, "About", [this]() {
+			aboutBox();
+		}, -1, 0}},
 		{ "close", { 6, "Close (CTRL-W)", []() {
 			JUCEApplicationBase::quit();
 		}, 0x57 /* W */, ModifierKeys::ctrlModifier}}
@@ -152,6 +154,22 @@ void PyTschirpEditor::saveAsDocument()
 	}
 }
 
+void PyTschirpEditor::aboutBox()
+{
+	String message = "This software is copyright 2019 by Christof Ruch\n"
+		"Released under dual license, by default under AGPL-3.0, but an MIT licensed version is available on request by the author\n"
+		"\n"
+		"This software is provided 'as-is,' without any express or implied warranty.In no event shall the author be held liable for any damages arising from the use of this software.\n"
+		"\n"
+		"Other licenses\n:"
+		"This software is build using JUCE, who might want to track your IP address. See https://github.com/WeAreROLI/JUCE/blob/develop/LICENSE.md for details.\n"
+		"We also use pybind11, which is Copyright (c) 2016 Wenzel Jakob <wenzel.jakob@epfl.ch>, All rights reserved. See https://github.com/pybind/pybind11.\n"
+		"The boost library is used for parts of this software, see https://www.boost.org/.\n"
+		"The installer provided also contains the Microsoft Visual Studio 2017 Redistributable Package.\n"
+		;
+	AlertWindow::showMessageBox(AlertWindow::InfoIcon, "About", message, "Close");
+}
+
 void PyTschirpEditor::codeDocumentTextInserted(const String& newText, int insertIndex)
 {
 }
@@ -240,6 +258,3 @@ void PyTschirpEditor::executeString(String const &string) {
 		currentStdout_.setText(standardOuts_.stdoutString(), dontSendNotification);
 	}
 }
-
-
-
