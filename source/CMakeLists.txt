@@ -50,6 +50,8 @@ set(SOURCES
 	PyTschirpEditor.h PyTschirpEditor.cpp
 	PythonUtils.h PythonUtils.cpp
 	Main.cpp
+	setup.iss
+	redist/agpl-3.0.txt
 )
 
 add_executable(PyTschirper WIN32 ${SOURCES})
@@ -102,3 +104,24 @@ ENDIF()
 IF (MSVC)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
 endif()
+
+IF(WIN32)
+	# Windows only: Build InnoSetup installer
+	find_program(INNOSETUP NAMES iscc ISCC HINTS "c:/program files (x86)/Inno Setup 6")
+	if (INNOSETUP)
+	else()
+		message(WARNING "Didn't find InnoSetup 6 installation, skipping creation of Client installer '")
+	endif()
+ENDIF()
+
+IF(WIN32)
+	 # Parse Inno Setup config file
+	configure_file("${CMAKE_CURRENT_LIST_DIR}/setup.iss"
+				   "${CMAKE_CURRENT_BINARY_DIR}/setup.iss")
+	set(no_copy $<NOT:$<CONFIG:Release>>)
+	add_custom_command(
+		TARGET PyTschirper POST_BUILD
+		COMMAND  "${CMAKE_COMMAND}" -E $<${no_copy}:echo> $<${no_copy}:"Not building Installer with "> chdir . ${INNOSETUP} "${CMAKE_CURRENT_BINARY_DIR}/setup.iss"
+		DEPENDS setup.iss 
+	)
+ENDIF()

@@ -18,6 +18,14 @@ IF (WIN32)
 	  URL "https://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.zip"
 	)
 	FetchContent_MakeAvailable(boost)
+
+	FetchContent_Declare(
+		vcredist
+		URL https://aka.ms/vs/16/release/vc_redist.x64.exe
+		DOWNLOAD_NO_EXTRACT true
+	)
+	FetchContent_MakeAvailable(vcredist)
+	set(VCREDIST_PATH "${CMAKE_CURRENT_BINARY_DIR}/_deps/vcredist-subbuild/vcredist-populate-prefix/src")
 ENDIF()
 
 # We need a little bit support for the JUCE library, and also want to put our own CMake helpers on the module path
