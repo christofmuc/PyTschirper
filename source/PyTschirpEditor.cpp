@@ -17,6 +17,7 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 	LambdaButtonStrip::TButtonMap buttons = {
 		{ "load", { 0, "Open (CTRL-O)", [this]() {
 			loadDocument();
+			editor_->grabKeyboardFocus();
 		}, 0x4F /* O */, ModifierKeys::ctrlModifier}},
 		{ "save", { 1, "Save (CTRL-S)", [this]() {
 			saveDocument();
