@@ -161,7 +161,7 @@ void PyTschirpEditor::aboutBox()
 		"\n"
 		"This software is provided 'as-is,' without any express or implied warranty.In no event shall the author be held liable for any damages arising from the use of this software.\n"
 		"\n"
-		"Other licenses\n:"
+		"Other licenses:\n"
 		"This software is build using JUCE, who might want to track your IP address. See https://github.com/WeAreROLI/JUCE/blob/develop/LICENSE.md for details.\n"
 		"We also use pybind11, which is Copyright (c) 2016 Wenzel Jakob <wenzel.jakob@epfl.ch>, All rights reserved. See https://github.com/pybind/pybind11.\n"
 		"The boost library is used for parts of this software, see https://www.boost.org/.\n"
