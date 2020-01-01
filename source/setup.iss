@@ -2,16 +2,16 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "PyTschirper"
-#define MyAppVersion "0.1.0"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "Christof Ruch Beratungs UG (haftungsbeschraenkt)"
-#define MyAppURL "https://github.com/christofmuc/JammerNetz"
+#define MyAppURL "https://github.com/christofmuc/PyTschirper"
 #define MyAppExeName "PyTschirper.exe"
 #define VCRedistFileName "vc_redist.x64.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{79860B85-3544-4CDE-BA0C-B56FA2962074}
+AppId={{91A9DA9E-DB27-4A75-B76A-B8CFE90A2A87}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
