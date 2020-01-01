@@ -157,7 +157,7 @@ void PyTschirpEditor::saveAsDocument()
 
 void PyTschirpEditor::aboutBox()
 {
-	String message = "This software is copyright 2019 by Christof Ruch\n"
+	String message = "This software is copyright 2019-2020 by Christof Ruch\n"
 		"Released under dual license, by default under AGPL-3.0, but an MIT licensed version is available on request by the author\n"
 		"\n"
 		"This software is provided 'as-is,' without any express or implied warranty.In no event shall the author be held liable for any damages arising from the use of this software.\n"
