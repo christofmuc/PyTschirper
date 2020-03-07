@@ -31,9 +31,13 @@ ENDIF()
 # We need a little bit support for the JUCE library, and also want to put our own CMake helpers on the module path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/third_party/juce-cmake/cmake" "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
+# RapidJson is an include-only library, so instead of bothering with their CMake files, just add the include path
+set(MANUALLY_RAPID_JSON "${CMAKE_CURRENT_LIST_DIR}/third_party/rapidjson/include")
+
 add_subdirectory(juce-utils)
 add_subdirectory(juce-widgets)
 add_subdirectory(MidiKraft-base)
+add_subdirectory(MidiKraft-librarian)
 add_subdirectory(MidiKraft-sequential-rev2)
 
 # Setup pybind11

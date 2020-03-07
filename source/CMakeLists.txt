@@ -43,6 +43,7 @@ find_package(JUCE REQUIRED
 		juce_audio_utils # AudioAppComponent
 		juce_dsp
 		juce_opengl
+		juce_cryptography # MD5
 )
 
 set(SOURCES
