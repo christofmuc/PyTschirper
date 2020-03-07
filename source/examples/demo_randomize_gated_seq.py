@@ -24,7 +24,7 @@ def explainGated(e):
 # When we reach this, the Rev2 is available, let's get the edit buffer
 e = r.editBuffer()
 
-e.Cutoff = 0
+#e.Cutoff = 0
 
 e["Seq 1 Dest"] = 41
 e["Seq 4 Dest"] = 10
