@@ -38,7 +38,12 @@ add_subdirectory(MidiKraft-sequential-rev2)
 
 # Setup pybind11
 IF(WIN32)
-#set(PYTHON_EXECUTABLE "c:/python/python36/python.exe")
+	IF(DEFINED ENV{APPVEYOR})
+		# Fixed path in Appveyor Windows build machine
+		set(PYTHON_EXECUTABLE "C:/Python36-x64/python.exe")
+	ELSE()
+		set(PYTHON_EXECUTABLE "c:/python/python36/python.exe")
+	ENDIF()
 ENDIF()
 set(PYBIND11_PYTHON_VERSION 3.6)
 add_subdirectory(third_party/pybind11)
@@ -46,5 +51,4 @@ add_subdirectory(third_party/pybind11)
 add_subdirectory(pytschirp)
 
 add_subdirectory(source)
-
 
