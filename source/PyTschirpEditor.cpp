@@ -214,8 +214,8 @@ void PyTschirpEditor::initPython()
 {
 	try {
 		auto pytschirp = py::module::import("pytschirp");
-		py::globals()["Rev2"] = pytschirp.attr("Rev2");
-		py::globals()["Rev2Patch"] = pytschirp.attr("Rev2Patch");
+		/*py::globals()["Rev2"] = pytschirp.attr("Rev2");
+		py::globals()["Rev2Patch"] = pytschirp.attr("Rev2Patch");*/
 
 		auto p = pytschirp.attr("midiControllerInstance")();
 		auto *midiController = p.cast<midikraft::MidiController *>();
