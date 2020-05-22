@@ -1,4 +1,4 @@
-from pytschirp import Rev2, Rev2Patch
+from pytschirp import Rev2
 import random
 
 r = Rev2()

@@ -1,4 +1,4 @@
-from pytschirp import Rev2, Rev2Patch
+from pytschirp import Rev2
 
 # Create an object to represent the Rev2 and run the autodetection
 r = Rev2()
