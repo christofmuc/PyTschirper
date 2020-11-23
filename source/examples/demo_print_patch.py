@@ -1,4 +1,6 @@
 from pytschirp import Rev2
+import os
+from pathlib import Path
 
 # Create an object to represent the Rev2 and run the autodetection
 r = Rev2()
