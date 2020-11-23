@@ -28,3 +28,11 @@
 [submodule "third_party/rapidjson"]
 	path = third_party/rapidjson
 	url = https://github.com/Tencent/rapidjson.git
+[submodule "MidiKraft-kawai-k3"]
+	path = MidiKraft-kawai-k3
+	url = https://github.com/christofmuc/MidiKraft-kawai-k3.git
+	branch = master
+[submodule "MidiKraft-BCR2000"]
+	path = MidiKraft-BCR2000
+	url = https://github.com/christofmuc/MidiKraft-BCR2000.git
+	branch = master

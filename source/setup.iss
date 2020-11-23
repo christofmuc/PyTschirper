@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "PyTschirper"
-#define MyAppVersion "1.0.1"
+#define MyAppVersion "1.0.2"
 #define MyAppPublisher "Christof Ruch Beratungs UG (haftungsbeschraenkt)"
 #define MyAppURL "https://github.com/christofmuc/PyTschirper"
 #define MyAppExeName "PyTschirper.exe"
@@ -38,8 +38,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "${CMAKE_CURRENT_BINARY_DIR}\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "${CMAKE_CURRENT_BINARY_DIR}\Release\python36.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "${CMAKE_CURRENT_BINARY_DIR}\Release\pytschirp.cp36-win_amd64.pyd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "${CMAKE_CURRENT_BINARY_DIR}\Release\python37.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "${CMAKE_CURRENT_BINARY_DIR}\Release\pytschirp.cp37-win_amd64.pyd"; DestDir: "{app}"; Flags: ignoreversion
 Source: "${CMAKE_CURRENT_LIST_DIR}\examples\*.py"; DestDir: "{userdocs}\PyTschirperExamples"; Flags: ignoreversion recursesubdirs
 Source: "${CMAKE_CURRENT_LIST_DIR}\examples\Rev2_Programs_v1.0.syx"; DestDir: "{localappdata}\PyTschirperExamples"; Flags: ignoreversion 
 Source: "${CMAKE_CURRENT_LIST_DIR}\examples\Prophet Rev2 Factory Programs ReadMe.txt"; DestDir: "{localappdata}\PyTschirperExamples"; Flags: ignoreversion 

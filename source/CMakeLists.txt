@@ -33,19 +33,6 @@ ELSEIF(UNIX)
 	pkg_check_modules(WEBKIT REQUIRED IMPORTED_TARGET webkit2gtk-4.0)
 ENDIF()
 
-find_package(JUCE REQUIRED 
-	COMPONENTS 
-		juce_core		
-		juce_events
-		juce_audio_basics
-		juce_audio_devices
-		juce_data_structures
-		juce_audio_utils # AudioAppComponent
-		juce_dsp
-		juce_opengl
-		juce_cryptography # MD5
-)
-
 set(SOURCES
 	MainComponent.h MainComponent.cpp	
 	PyTschirpEditor.h PyTschirpEditor.cpp

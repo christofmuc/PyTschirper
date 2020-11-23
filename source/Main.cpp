@@ -16,8 +16,8 @@ public:
     //==============================================================================
     PyTschirperApplication() {}
 
-    const String getApplicationName() override       { return ProjectInfo::projectName; }
-    const String getApplicationVersion() override    { return ProjectInfo::versionString; }
+	const String getApplicationName() override { return "PyTschirper"; }
+    const String getApplicationVersion() override    { return "1.0.2"; }
     bool moreThanOneInstanceAllowed() override       { return true; }
 
     //==============================================================================
