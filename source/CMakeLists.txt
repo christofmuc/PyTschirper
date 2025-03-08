@@ -23,6 +23,8 @@ project(PyTschirperUI)
 
 IF (WIN32)
 	# All setup for UI software on Windows
+ELSEIF(APPLE)
+	# Works out of the box
 ELSEIF(UNIX)
 	# Include useful scripts for CMake
 	find_package(PkgConfig REQUIRED) 
@@ -46,6 +48,15 @@ add_executable(PyTschirper WIN32 ${SOURCES})
 target_include_directories(PyTschirper INTERFACE ${CMAKE_CURRENT_LIST_DIR})
 IF(WIN32)
 	target_link_libraries(PyTschirper PRIVATE ${JUCE_LIBRARIES} pybind11::embed juce-utils juce-widgets midikraft-base)
+ELSEIF(APPLE)
+	target_link_libraries(PyTschirper PRIVATE
+			${JUCE_LIBRARIES}
+			${CMAKE_DL_LIBS}
+			pybind11::embed
+			juce-utils
+			juce-widgets
+			midikraft-base
+			)
 ELSEIF(UNIX)
 	target_link_libraries(PyTschirper PRIVATE 
 		${JUCE_LIBRARIES} 

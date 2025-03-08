@@ -15,26 +15,26 @@ PyTschirpEditor::PyTschirpEditor(PyStdErrOutStreamRedirect &standardOuts) : stan
 	editor_ = std::make_unique<CodeEditorComponent>(document_, nullptr);
 	addAndMakeVisible(editor_.get());
 	LambdaButtonStrip::TButtonMap buttons = {
-		{ "load", { 0, "Open (CTRL-O)", [this]() {
+		{ "load", { "Open (CTRL-O)", [this]() {
 			loadDocument();
 			editor_->grabKeyboardFocus();
 		}, 0x4F /* O */, ModifierKeys::ctrlModifier}},
-		{ "save", { 1, "Save (CTRL-S)", [this]() {
+		{ "save", { "Save (CTRL-S)", [this]() {
 			saveDocument();
 		}, 0x53 /* S */, ModifierKeys::ctrlModifier}},
-		{ "saveAs", { 2, "Save as (CTRL-A)", [this]() {
+		{ "saveAs", { "Save as (CTRL-A)", [this]() {
 			saveAsDocument();
 		}, 0x41 /* A */, ModifierKeys::ctrlModifier}},
-		{ "run", { 3, "Run All (CTRL-ENTER)", [this]() {
+		{ "run", { "Run All (CTRL-ENTER)", [this]() {
 			executeDocument();
 		}, 0x0D /* ENTER */, ModifierKeys::ctrlModifier}},
-		{ "runSel", { 4, "Run Sel (ALT-ENTER)", [this]() {
+		{ "runSel", { "Run Sel (ALT-ENTER)", [this]() {
 			executeSelection();
 		}, 0x0D /* ENTER */, ModifierKeys::altModifier}},
-		{ "about", { 5, "About", [this]() {
+		{ "about", { "About", [this]() {
 			aboutBox();
 		}, -1, 0}},
-		{ "close", { 6, "Close (CTRL-W)", []() {
+		{ "close", { "Close (CTRL-W)", []() {
 			JUCEApplicationBase::quit();
 		}, 0x57 /* W */, ModifierKeys::ctrlModifier}}
 	};

@@ -33,3 +33,15 @@
 	path = MidiKraft-BCR2000
 	url = https://github.com/christofmuc/MidiKraft-BCR2000.git
 	branch = master
+[submodule "third_party/json"]
+	path = third_party/json
+	url = https://github.com/nlohmann/json.git
+[submodule "third_party/fmt"]
+	path = third_party/fmt
+	url = https://github.com/fmtlib/fmt.git
+[submodule "third_party/spdlog"]
+	path = third_party/spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "MidiKraft"]
+	path = MidiKraft
+	url = https://github.com/christofmuc/MidiKraft.git

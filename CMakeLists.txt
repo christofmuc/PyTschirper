@@ -8,6 +8,10 @@ cmake_minimum_required(VERSION 3.14)
 
 project(PyTschirper)
 
+set(CMAKE_CXX_STANDARD 20)
+option(JUCE_CONFIG_JUCE_WEB_BROWSER OFF)
+
+
 # Include useful scripts for CMake    
 include(FetchContent REQUIRED)
 
@@ -53,10 +57,11 @@ target_link_libraries(juce-static
 
 target_compile_definitions(juce-static
 	PUBLIC
+		JUCE_STANDALONE_APPLICATION=1
+		JUCE_MODAL_LOOPS_PERMITTED=1
 		JUCE_PLUGINHOST_VST=0
 		JUCE_PLUGINHOST_AU=0
 		DONT_SET_USING_JUCE_NAMESPACE=1
-		JUCE_DISPLAY_SPLASH_SCREEN=0
 		JUCE_REPORT_APP_USAGE=0
 		JUCE_CHECK_MEMORY_LEAKS=0
 		JUCE_QUICKTIME=0
@@ -78,16 +83,10 @@ set_target_properties(juce-static PROPERTIES
 	C_VISIBILITY_PRESET hidden
 	CXX_VISIBILITY_PRESET hidden)
 
-# Adding my static libraries
-add_subdirectory(juce-utils)
-add_subdirectory(juce-widgets)
-add_subdirectory(MidiKraft-base)
-add_subdirectory(MidiKraft-librarian)
-add_subdirectory(MidiKraft-BCR2000)
-add_subdirectory(MidiKraft-sequential-rev2)
-add_subdirectory(MidiKraft-kawai-k3)
-
 # Setup pybind11
+option(FMT_INSTALL "" OFF)
+option(FMT_SYSTEM_HEADERS "" ON)
+add_subdirectory(third_party/fmt)
 IF(WIN32)
 	IF(DEFINED ENV{APPVEYOR})
 		# Fixed path in Appveyor Windows build machine
@@ -98,6 +97,18 @@ IF(WIN32)
 ENDIF()
 set(PYBIND11_PYTHON_VERSION 3.7)
 add_subdirectory(third_party/pybind11)
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+add_subdirectory(third_party/json)
+option(SPDLOG_FMT_EXTERNAL "" ON)
+add_subdirectory(third_party/spdlog)
+
+# Adding my static libraries
+add_subdirectory(juce-utils)
+add_subdirectory(juce-widgets)
+add_subdirectory(MidiKraft)
+add_subdirectory(MidiKraft-BCR2000)
+add_subdirectory(MidiKraft-sequential-rev2)
+add_subdirectory(MidiKraft-kawai-k3)
 
 add_subdirectory(pytschirp)
 
