@@ -105,6 +105,7 @@ add_subdirectory(third_party/spdlog)
 # Adding my static libraries
 add_subdirectory(juce-utils)
 add_subdirectory(juce-widgets)
+option(MIDIKRAFT_BUILD_LIBRARIAN "" ON)
 add_subdirectory(MidiKraft)
 add_subdirectory(MidiKraft-BCR2000)
 add_subdirectory(MidiKraft-sequential-rev2)
